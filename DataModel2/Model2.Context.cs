@@ -15,6 +15,8 @@ namespace DataModel2
     
     public partial class DBTwoEntities : DbContext
     {
+        public object tbOnes;
+
         public DBTwoEntities()
             : base("name=DBTwoEntities")
         {

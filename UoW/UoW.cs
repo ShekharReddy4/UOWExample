@@ -22,13 +22,23 @@ namespace UoW
         }
         public int SaveChanges()
         {
-            using (TransactionScope scope = new TransactionScope())
+            try
             {
-                DM1Context.SaveChanges();
-                DM2Context.SaveChanges();
-                scope.Complete();
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    DM1Context.SaveChanges();
+                    DM2Context.SaveChanges();
+                    scope.Complete();
+                }
+                return 0;
+
             }
-            return 0;
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+           
         }
         public void Dispose()
         {
