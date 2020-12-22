@@ -22,8 +22,9 @@ namespace Console.UOW
                 tbOne = obj1
             };
 
-            // This object is from the Domain Model which is corresponding object for the DataModel2
+            // This object is from the Domain Model which is the corresponding object for the DataModel2
             // As of now I am not using this object for demonstrating the UoW
+            // this DataModel is actually not required. To Be remove later sometime
             DM.tbone2 obj2 = new DM.tbone2()
             {
                 name2 = "name2",
