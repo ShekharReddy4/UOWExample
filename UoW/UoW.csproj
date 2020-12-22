@@ -62,6 +62,10 @@
       <Project>{79aac212-cbaa-424d-b080-91b54607d47f}</Project>
       <Name>DataModel2</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DomainModel\DomainModel.csproj">
+      <Project>{a7422818-6eb6-4335-abd8-bc1eac155563}</Project>
+      <Name>DomainModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Repository\Repository.csproj">
       <Project>{5a5abed2-9b4b-4721-bdca-2182a3b3fdfc}</Project>
       <Name>Repository</Name>

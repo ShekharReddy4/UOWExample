@@ -4,52 +4,85 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBOneModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBOneModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbOne">
           <Key>
-            <PropertyRef Name="No" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="No" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="College" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbTwo">
           <Key>
-            <PropertyRef Name="noo" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="noo" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="namee" Type="nvarchar(max)" />
           <Property Name="College" Type="nvarchar(max)" />
         </EntityType>
+        <Association Name="FK_ID">
+          <End Role="tbOne" Type="Self.tbOne" Multiplicity="1" />
+          <End Role="tbTwo" Type="Self.tbTwo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbOne">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbTwo">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DBOneModelStoreContainer">
           <EntitySet Name="tbOne" EntityType="Self.tbOne" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbTwo" EntityType="Self.tbTwo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ID" Association="Self.FK_ID">
+            <End Role="tbOne" EntitySet="tbOne" />
+            <End Role="tbTwo" EntitySet="tbTwo" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBOneModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="tbOne">
           <Key>
-            <PropertyRef Name="No" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="No" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="College" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="tbTwo" Relationship="DBOneModel.FK_ID" FromRole="tbOne" ToRole="tbTwo" />
         </EntityType>
         <EntityType Name="tbTwo">
           <Key>
-            <PropertyRef Name="noo" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="noo" Type="Int32" Nullable="false" />
           <Property Name="namee" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="College" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="tbOne" Relationship="DBOneModel.FK_ID" FromRole="tbTwo" ToRole="tbOne" />
         </EntityType>
         <EntityContainer Name="DBOneEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tbOnes" EntityType="Self.tbOne" />
           <EntitySet Name="tbTwoes" EntityType="Self.tbTwo" />
+          <AssociationSet Name="FK_ID" Association="DBOneModel.FK_ID">
+            <End Role="tbOne" EntitySet="tbOnes" />
+            <End Role="tbTwo" EntitySet="tbTwoes" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_ID">
+          <End Type="DBOneModel.tbOne" Role="tbOne" Multiplicity="1" />
+          <End Type="DBOneModel.tbTwo" Role="tbTwo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbOne">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbTwo">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -59,7 +92,7 @@
           <EntitySetMapping Name="tbOnes">
             <EntityTypeMapping TypeName="DBOneModel.tbOne">
               <MappingFragment StoreEntitySet="tbOne">
-                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="College" ColumnName="College" />
               </MappingFragment>
@@ -68,7 +101,7 @@
           <EntitySetMapping Name="tbTwoes">
             <EntityTypeMapping TypeName="DBOneModel.tbTwo">
               <MappingFragment StoreEntitySet="tbTwo">
-                <ScalarProperty Name="noo" ColumnName="noo" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="namee" ColumnName="namee" />
                 <ScalarProperty Name="College" ColumnName="College" />
               </MappingFragment>

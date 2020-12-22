@@ -9,5 +9,6 @@ namespace Repository
     interface IEntity<T>
     {
         void AddOne(T entity);
+        List<T> GetTRecords();
     }
 }

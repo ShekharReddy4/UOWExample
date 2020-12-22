@@ -6,5 +6,7 @@
         public string Name { get; set; }
         public string College { get; set; }
 
+        public virtual tbTwo tbTwo { get; set; }
+
     }
 }

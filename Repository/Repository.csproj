@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="IEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\tbTwoRepo.cs" />
     <Compile Include="Repositories\tboneRepo.cs" />
     <Compile Include="Repositories\tbone2Repo.cs" />
     <Compile Include="Repository.cs" />
@@ -64,6 +65,10 @@
     <ProjectReference Include="..\DataModel2\DataModel2.csproj">
       <Project>{79AAC212-CBAA-424D-B080-91B54607D47F}</Project>
       <Name>DataModel2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DomainModel\DomainModel.csproj">
+      <Project>{a7422818-6eb6-4335-abd8-bc1eac155563}</Project>
+      <Name>DomainModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

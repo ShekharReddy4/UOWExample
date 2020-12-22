@@ -1,6 +1,5 @@
-﻿using DataModel1;
-using DataModel2;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using UoW;
 using DM = DomainModel;
 
@@ -10,69 +9,61 @@ namespace Console.UOW
     {
         static void Main(string[] args)
         {
-
             DM.tbOne obj1 = new DM.tbOne()
             {
                 Name = "name1",
                 College = "KMIT",
-                No = 12
             };
 
+            DM.tbTwo obj3 = new DM.tbTwo()
+            {
+                namee = "Shekhar",
+                College = "Somecolleege",
+                tbOne = obj1
+            };
+
+            // This object is from the Domain Model which is corresponding object for the DataModel2
+            // As of now I am not using this object for demonstrating the UoW
             DM.tbone2 obj2 = new DM.tbone2()
             {
                 name2 = "name2",
                 college2 = "KMIT2",
-                no2 = 23
             };
 
-            using (UnitOfWork u = new UnitOfWork())
+            // UoW is mainly used to add, Delete and Update the records in the tables which are connected
+            // by a constraint
+
+            // this  try below we are trying to add a rec
+            try
             {
-                u.tb1.AddOne(new DataModel1.tbOne()
+                using (UnitOfWork u = new UnitOfWork())
                 {
-                    No = obj1.No,
-                    Name = obj1.Name,
-                    College = obj1.College
-                });
-
-                u.tb2.AddOne(new DataModel2.tbone()
-                {
-                    no2 = obj2.no2,
-                    name2 = obj2.name2,
-                    college2 = obj2.college2
-                });
-
-                u.SaveChanges();
-
+                    u.tb1.AddRecord(obj1);
+                    u.tb2.AddRecord(obj3);
+                    u.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
 
-            //using ( var x = new DBOneEntities())
-            //{
-            //    x.tbOnes.Add(new DataModel1.tbOne()
-            //    {
-            //        No = obj1.No,
-            //        Name = obj1.Name,
-            //        College = obj1.College
-            //    });
-
-            //    x.SaveChanges();
-            //}
-
-            //using (var x = new DBTwoEntities())
-            //{
-            //    x.tbones.Add(new DataModel2.tbone()
-            //    {
-            //        no2 = obj2.no2,
-            //        name2 = obj2.name2,
-            //        college2 = obj2.college2
-            //    });
-
-            //    x.SaveChanges();
-            //}
-
-
-
-
-
+            // Get the Allrecords
+            try
+            {
+                using (UnitOfWork u = new UnitOfWork())
+                {
+                    var x = u.tb1.GetTRecordsByIDs(new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+                    foreach (var item in x)
+                    {
+                        System.Console.WriteLine(item.No);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
         }
     }

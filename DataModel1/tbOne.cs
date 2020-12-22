@@ -14,8 +14,10 @@ namespace DataModel1
     
     public partial class tbOne
     {
-        public int No { get; set; }
         public string Name { get; set; }
         public string College { get; set; }
+        public int ID { get; set; }
+    
+        public virtual tbTwo tbTwo { get; set; }
     }
 }

@@ -6,19 +6,25 @@ using System.Transactions;
 
 namespace UoW
 {
+    /// <summary>
+    /// In this UoW class you are essentially adding another layer of security 
+    /// that if any two tables are linked to each other 
+    /// then if you do operations on those tables we are making sure that either the transaction is done completely
+    /// or not done at all
+    /// this will make sure that there is data consistency
+    /// </summary>
     public class UnitOfWork : IDisposable
     {
-        public DBOneEntities DM1Context;
-        public DBTwoEntities DM2Context;
+        public DBOneEntities DB1Context;
 
-        public  tboneRepo tb1{ get; set; }
-        public tbone2Repo tb2 { get; set; }
+        public tboneRepo tb1{ get; set; }
+        public tbTwoRepo tb2{ get; set; }
         public UnitOfWork()
         {
-            this.DM1Context = new DBOneEntities();
-            this.DM2Context = new DBTwoEntities();
-            tb1 = new tboneRepo(DM1Context);
-            tb2 = new tbone2Repo(DM2Context);
+            this.DB1Context = new DBOneEntities();
+            tb1 = new tboneRepo(DB1Context);
+            tb2 = new tbTwoRepo(DB1Context);
+
         }
         public int SaveChanges()
         {
@@ -26,24 +32,19 @@ namespace UoW
             {
                 using (TransactionScope scope = new TransactionScope())
                 {
-                    DM1Context.SaveChanges();
-                    DM2Context.SaveChanges();
+                    DB1Context.SaveChanges();// here we are saving to the database
                     scope.Complete();
                 }
                 return 0;
-
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine(ex.Message);
                 throw;
             }
-           
         }
         public void Dispose()
         {
-            DM1Context.Dispose();
-            DM2Context.Dispose();
+            DB1Context.Dispose();
         }
     }
 }

@@ -65,14 +65,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataModel1\DataModel1.csproj">
-      <Project>{9D3B6EA7-FDF2-4C22-A073-8336CA30C97D}</Project>
-      <Name>DataModel1</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataModel2\DataModel2.csproj">
-      <Project>{79aac212-cbaa-424d-b080-91b54607d47f}</Project>
-      <Name>DataModel2</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DomainModel\DomainModel.csproj">
       <Project>{a7422818-6eb6-4335-abd8-bc1eac155563}</Project>
       <Name>DomainModel</Name>
